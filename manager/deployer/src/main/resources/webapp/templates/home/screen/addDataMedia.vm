@@ -34,7 +34,7 @@ function changeKeyword(id, name) {
 	
     <table cellpadding="0" cellspacing="0" class="setting_otter">
 	    <tr>
-		    <span>系统自动增加所有需要同步的表</span>
+		    <span style="font: red;">系统自动增加所有需要同步的表</span>
 	    </tr>
 		<tr>
             <span class="red">#addDataMediaMessage ($dataMediaGroup.formDataMediaError)</span>
@@ -42,7 +42,7 @@ function changeKeyword(id, name) {
       <tr> 
         <th width="300">数据库名称：</th>
         <td width="329">
-			<input id="namespace" name="$dataMediaGroup.namespace.key" value="可以不填写" type="text" class="setting_input"/><span class="red">*</span>
+			<input id="namespace" name="$dataMediaGroup.namespace.key" value="$!dataMediaGroup.namespace.value" type="text" class="setting_input"/><span class="red">*</span>
 			<br />
 			<span class="red">#addDataMediaMessage ($dataMediaGroup.namespace)</span>
 		</td>
@@ -50,7 +50,7 @@ function changeKeyword(id, name) {
 	  <tr> 
         <th width="300">表名：</th>
         <td width="329">
-			<input id="name" name="$dataMediaGroup.name.key" value="$!dataMediaGroup.name.value" type="text" class="setting_input"/><span class="red">*</span>
+			<input id="name" name="$dataMediaGroup.name.key" value="template" type="text" class="setting_input"/><span class="red">*</span>
 			<br />
 			<span class="red">#addDataMediaMessage ($dataMediaGroup.name)</span>
 		</td>
