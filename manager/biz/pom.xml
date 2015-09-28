@@ -122,11 +122,6 @@
 
 		<!-- test dependency -->
 		<dependency>
-			<groupId>org.jtester</groupId>
-			<artifactId>jtester</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>

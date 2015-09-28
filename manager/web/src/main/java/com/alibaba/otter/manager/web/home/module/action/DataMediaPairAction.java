@@ -16,6 +16,7 @@
 
 package com.alibaba.otter.manager.web.home.module.action;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,22 +48,20 @@ import com.alibaba.otter.shared.common.model.config.data.ExtensionDataType;
 public class DataMediaPairAction {
 
     @Resource(name = "dataMediaPairService")
-    private DataMediaPairService   dataMediaPairService;
+    private DataMediaPairService dataMediaPairService;
 
     @Resource(name = "dataMediaService")
-    private DataMediaService       dataMediaService;
+    private DataMediaService dataMediaService;
 
     @Resource(name = "dataMediaSourceService")
     private DataMediaSourceService dataMediaSourceService;
 
     @Resource(name = "channelService")
-    private ChannelService         channelService;
+    private ChannelService channelService;
 
     /**
      * 添加DataMediaPair
-     * 
-     * @param channelInfo
-     * @param channelParameterInfo
+     *
      * @throws Exception
      */
     public void doAdd(@Param("submitKey") String submitKey, @FormGroup("dataMediaPairInfo") Group dataMediaPairInfo,
@@ -109,23 +108,42 @@ public class DataMediaPairAction {
             nav.redirectToLocation("dataMediaPairList.htm?pipelineId=" + dataMediaPair.getPipelineId());
         } else if (submitKey.equals("下一步")) {
             nav.redirectToLocation("addColumnPair.htm?dataMediaPairId=" + id + "&pipelineId="
-                                   + dataMediaPair.getPipelineId() + "&dataMediaPairId=" + id + "&sourceMediaId="
-                                   + sourceDataMedia.getId() + "&targetMediaId=" + targetDataMedia.getId());
+                    + dataMediaPair.getPipelineId() + "&dataMediaPairId=" + id + "&sourceMediaId="
+                    + sourceDataMedia.getId() + "&targetMediaId=" + targetDataMedia.getId());
         }
     }
 
     /**
      * 批量添加DataMediaPair
-     * 
-     * @param dataMediaPairInfo
+     *
+     * @param batchDataMediaPairInfo
      * @throws Exception
      */
     public void doBatchAdd(@FormGroup("batchDataMediaPairInfo") Group batchDataMediaPairInfo,
                            @Param("pipelineId") Long pipelineId,
                            @FormField(name = "formBatchDataMediaPairError", group = "batchDataMediaPairInfo") CustomErrors err,
                            Navigator nav) throws Exception {
+        /**
+         * 只需要填写，schema,dataSourceId,schema,dataSourceId
+         */
         String batchPairContent = batchDataMediaPairInfo.getField("batchPairContent").getStringValue();
-        List<String> StringPairs = Arrays.asList(batchPairContent.split("\r\n"));
+        String[] t = batchPairContent.split(",");
+        if (t.length < 4) {
+            throw new ManagerException("[" + batchPairContent + "] the line not all parameters");
+        }
+        /**
+         * yjdd-3,template,1,yjddd,template,2
+         */
+        List<String> StringPairs = new ArrayList<String>();//Arrays.asList(batchPairContent.split("\r\n"));
+        List<String> tables = Arrays.asList(
+                "template", "tv_wall_plan_item", "tv_channel", "template_members", "meeting",
+                "recorder_channel", "tv_wall", "recorder",
+                "micro_control_unit", "member", "ip", "tv_wall_plan",
+                "region", "app_user", "department", "police");
+        for (String each : tables) {
+            throw new ManagerException(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
+//            StringPairs.add(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
+        }
         try {
             for (String stringPair : StringPairs) {
                 List<String> pairData = Arrays.asList(stringPair.split(","));
@@ -230,8 +248,8 @@ public class DataMediaPairAction {
             nav.redirectToLocation("dataMediaPairList.htm?pipelineId=" + dataMediaPair.getPipelineId());
         } else if (submitKey.equals("下一步")) {
             nav.redirectToLocation("addColumnPair.htm?pipelineId=" + dataMediaPair.getPipelineId() + "&channelId="
-                                   + channelId + "&dataMediaPairId=" + dataMediaPair.getId() + "&sourceMediaId="
-                                   + sourceDataMedia.getId() + "&targetMediaId=" + targetDataMedia.getId());
+                    + channelId + "&dataMediaPairId=" + dataMediaPair.getId() + "&sourceMediaId="
+                    + sourceDataMedia.getId() + "&targetMediaId=" + targetDataMedia.getId());
         }
     }
 
@@ -251,9 +269,10 @@ public class DataMediaPairAction {
 
     /**
      * 选择视图同步
-     * 
-     * @param channelInfo
-     * @param channelParameterInfo
+     *
+     * @param dataMediaPairInfo
+     * @param err
+     * @param nav
      * @throws Exception
      */
     public void doNextToView(@FormGroup("dataMediaPairInfo") Group dataMediaPairInfo,

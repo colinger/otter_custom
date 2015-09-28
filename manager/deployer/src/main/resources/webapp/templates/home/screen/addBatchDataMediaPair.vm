@@ -42,8 +42,9 @@ function changeKeyword(id, name, local) {
 			<tr> 
 				<td>
 					格式<span class="red">(红色为必填)</span>：<br/>
-					1. 最简配置 <span class="red">schema,table,sourceId1,sourceId2,</span>loadWeight<br/>
-					2. 表名不一致 <span class="red">schema1,table1,sourceId1,schema2,table2,sourceId2,</span>loadWeight<br/>
+					配置：<span class="red">schema1,sourceId1,schema2,sourceId2,</span>其中schema为数据库名称，sourceId为数据源的ID（数据源配置中的id）
+##					1. 最简配置 <span class="red">schema,table,sourceId1,sourceId2,</span>loadWeight<br/>
+##					2. 表名不一致 <span class="red">schema1,table1,sourceId1,schema2,table2,sourceId2,</span>loadWeight<br/>
 				</td>
 			</tr>
 			<tr> 

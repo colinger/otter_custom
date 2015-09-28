@@ -47,37 +47,42 @@ public class DataMediaAction extends AbstractAction {
     private DataMediaSourceService dataMediaSourceService;
 
     /**
-     * 添加Channel
-     * 
-     * @param channelInfo
-     * @param channelParameterInfo
+     * 添加数据源
+     * @param dataMediaInfo
+     * @param err
+     * @param nav
      * @throws Exception
      */
     public void doAdd(@FormGroup("dataMediaInfo") Group dataMediaInfo,
                       @FormField(name = "formDataMediaError", group = "dataMediaInfo") CustomErrors err, Navigator nav)
                                                                                                                        throws Exception {
+        for(String table: YJDDTables.allTables()) {
+            DataMedia dataMedia = new DataMedia();
+            dataMediaInfo.setProperties(dataMedia);
+            dataMedia.setName(table);
+            DataMediaSource dataMediaSource = dataMediaSourceService.findById(dataMediaInfo.getField("sourceId").getLongValue());
+            if (dataMediaSource.getType().isMysql() || dataMediaSource.getType().isOracle()) {
+                dataMedia.setSource((DbMediaSource) dataMediaSource);
+            } else if (dataMediaSource.getType().isNapoli() || dataMediaSource.getType().isMq()) {
+                dataMedia.setSource((MqMediaSource) dataMediaSource);
+            }
 
-        DataMedia dataMedia = new DataMedia();
-        dataMediaInfo.setProperties(dataMedia);
-        DataMediaSource dataMediaSource = dataMediaSourceService.findById(dataMediaInfo.getField("sourceId").getLongValue());
-        if (dataMediaSource.getType().isMysql() || dataMediaSource.getType().isOracle()) {
-            dataMedia.setSource((DbMediaSource) dataMediaSource);
-        } else if (dataMediaSource.getType().isNapoli() || dataMediaSource.getType().isMq()) {
-            dataMedia.setSource((MqMediaSource) dataMediaSource);
+            try {
+                dataMediaService.create(dataMedia);
+            } catch (RepeatConfigureException rce) {
+                err.setMessage("invalidDataMedia");
+                return;
+            }
         }
-
-        try {
-            dataMediaService.create(dataMedia);
-        } catch (RepeatConfigureException rce) {
-            err.setMessage("invalidDataMedia");
-            return;
-        }
-
         nav.redirectTo(WebConstant.DATA_MEDIA_LIST_LINK);
     }
 
     /**
-     * @param channelId
+     * 删除数据源
+     * @param dataMediaId
+     * @param pageIndex
+     * @param searchKey
+     * @param nav
      * @throws WebxException
      */
     public void doDelete(@Param("dataMediaId") Long dataMediaId, @Param("pageIndex") int pageIndex,
