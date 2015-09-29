@@ -135,14 +135,9 @@ public class DataMediaPairAction {
          * yjdd-3,template,1,yjddd,template,2
          */
         List<String> StringPairs = new ArrayList<String>();//Arrays.asList(batchPairContent.split("\r\n"));
-        List<String> tables = Arrays.asList(
-                "template", "tv_wall_plan_item", "tv_channel", "template_members", "meeting",
-                "recorder_channel", "tv_wall", "recorder",
-                "micro_control_unit", "member", "ip", "tv_wall_plan",
-                "region", "app_user", "department", "police");
-        for (String each : tables) {
-            throw new ManagerException(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
-//            StringPairs.add(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
+        for (String each : YJDDTables.allTables()) {
+//            throw new ManagerException(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
+            StringPairs.add(String.format("%s,%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
         }
         try {
             for (String stringPair : StringPairs) {
