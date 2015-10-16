@@ -42,7 +42,13 @@ function changeKeyword(id, name, local) {
 			<tr> 
 				<td>
 					格式<span class="red">(红色为必填)</span>：<br/>
-					配置：<span class="red">schema1,sourceId1,schema2,sourceId2,</span>其中schema为数据库名称，sourceId为数据源的ID（数据源配置中的id）
+					配置：<span class="red">schema1,sourceId1,schema2,sourceId2,</span>其中schema为数据库名称(如：yjdd)，sourceId为数据源的ID（<a target="_blank" href="/data_media_list.htm">数据源配置中的序号</a>）<br/>
+					举例,如果在<a target="_blank" href="/data_media_list.htm">数据源配置</a>列表中有两条记录：
+					<ul>
+						<li>1. 单位A的数据源，数据为yjdd,其序号为1</li>
+                        <li>2. 单位B的数据源，数据为yjdd,其序号为2</li>
+					</ul>
+					则，配置单位A到单位B的同步数据映射为：yjdd,1,yjdd,2;相反为:yjdd,2,yjdd,1
 ##					1. 最简配置 <span class="red">schema,table,sourceId1,sourceId2,</span>loadWeight<br/>
 ##					2. 表名不一致 <span class="red">schema1,table1,sourceId1,schema2,table2,sourceId2,</span>loadWeight<br/>
 				</td>

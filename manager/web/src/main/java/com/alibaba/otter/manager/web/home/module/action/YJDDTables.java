@@ -18,11 +18,12 @@ public abstract class YJDDTables {
         List<String> tables = Arrays.asList(
                 "template", "tv_wall_plan_item",
                 "tv_channel", "template_members",
-                "meeting", "recorder_channel",
+                "recorder_channel",
                 "tv_wall", "recorder",
                 "micro_control_unit", "member",
                 "ip", "tv_wall_plan",
                 "region", "app_user",
+                "auditing_resource",
                 "department", "police");
         return tables;
     }

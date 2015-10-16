@@ -47,19 +47,39 @@ public class DataMediaAction extends AbstractAction {
     private DataMediaSourceService dataMediaSourceService;
 
     /**
-     * 添加数据源
+     * 数据表配置
      * @param dataMediaInfo
      * @param err
      * @param nav
      * @throws Exception
      */
     public void doAdd(@FormGroup("dataMediaInfo") Group dataMediaInfo,
-                      @FormField(name = "formDataMediaError", group = "dataMediaInfo") CustomErrors err, Navigator nav)
-                                                                                                                       throws Exception {
-        for(String table: YJDDTables.allTables()) {
+                      @FormField(name = "formDataMediaError", group = "dataMediaInfo") CustomErrors err, Navigator nav)throws Exception {
+
+        DataMedia dataMedia1 = new DataMedia();
+        dataMediaInfo.setProperties(dataMedia1);
+        if("all".toUpperCase().equals(dataMedia1.getName())) {
+            for (String table : YJDDTables.allTables()) {
+                DataMedia dataMedia = new DataMedia();
+                dataMediaInfo.setProperties(dataMedia);
+                dataMedia.setName(table);
+                DataMediaSource dataMediaSource = dataMediaSourceService.findById(dataMediaInfo.getField("sourceId").getLongValue());
+                if (dataMediaSource.getType().isMysql() || dataMediaSource.getType().isOracle()) {
+                    dataMedia.setSource((DbMediaSource) dataMediaSource);
+                } else if (dataMediaSource.getType().isNapoli() || dataMediaSource.getType().isMq()) {
+                    dataMedia.setSource((MqMediaSource) dataMediaSource);
+                }
+
+                try {
+                    dataMediaService.create(dataMedia);
+                } catch (RepeatConfigureException rce) {
+                    err.setMessage("invalidDataMedia");
+                    return;
+                }
+            }
+        }else{
             DataMedia dataMedia = new DataMedia();
             dataMediaInfo.setProperties(dataMedia);
-            dataMedia.setName(table);
             DataMediaSource dataMediaSource = dataMediaSourceService.findById(dataMediaInfo.getField("sourceId").getLongValue());
             if (dataMediaSource.getType().isMysql() || dataMediaSource.getType().isOracle()) {
                 dataMedia.setSource((DbMediaSource) dataMediaSource);
