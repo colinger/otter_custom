@@ -127,17 +127,25 @@ public class DataMediaPairAction {
          * 只需要填写，schema,dataSourceId,schema,dataSourceId
          */
         String batchPairContent = batchDataMediaPairInfo.getField("batchPairContent").getStringValue();
+        boolean isMaster = batchDataMediaPairInfo.getField("mode").getBooleanValue();
         String[] t = batchPairContent.split(",");
         if (t.length < 4) {
-            throw new ManagerException("[" + batchPairContent + "] the line not all parameters");
+//            throw new ManagerException("[" + batchPairContent + "] 格式不对");
+            err.setMessage("invalidBatchDataMediaPairFormat");
+            return;
         }
         /**
          * yjdd-3,template,1,yjddd,template,2
          */
         List<String> StringPairs = new ArrayList<String>();//Arrays.asList(batchPairContent.split("\r\n"));
-        for (YJDDTables.YJDDTable each : YJDDTables.allTablesWithWeight()) {
-//            throw new ManagerException(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
-            StringPairs.add(String.format("%s,%s,%s,%s,%s,%s,%d", t[0], each.taleName, t[1], t[2], each.taleName, t[3], each.weight));
+        if(isMaster){//主备模式，单项
+            for (YJDDTables.YJDDTable each : YJDDTables.allOfTables()) {
+                StringPairs.add(String.format("%s,%s,%s,%s,%s,%s,%d", t[0], each.taleName, t[1], t[2], each.taleName, t[3], each.weight));
+            }
+        }else {
+            for (YJDDTables.YJDDTable each : YJDDTables.allTablesWithWeight()) {
+                StringPairs.add(String.format("%s,%s,%s,%s,%s,%s,%d", t[0], each.taleName, t[1], t[2], each.taleName, t[3], each.weight));
+            }
         }
         try {
             for (String stringPair : StringPairs) {

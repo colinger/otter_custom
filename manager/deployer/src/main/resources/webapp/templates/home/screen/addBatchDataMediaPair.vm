@@ -1,66 +1,76 @@
-
 $control.setTemplate("home:navigation.vm")
 <script language="javascript">
-<!--
-	changeNav("sync");
-//-->
-function changeKeyword(id, name, local) {
-	if(local == 'source'){
-    	if( document.getElementById("sourceDataMediaId") && document.getElementById("sourceDataMediaName")){
-    		document.getElementById('sourceDataMediaId').value = id;
-        	document.getElementById('sourceDataMediaName').value = name;
-    	}
-	}else{
-		if( document.getElementById("targetDataMediaId") && document.getElementById("targetDataMediaName")){
-    		document.getElementById('targetDataMediaId').value = id;
-        	document.getElementById('targetDataMediaName').value = name;
-    	}
-	}
-	
-}
+    <!--
+    changeNav("sync");
+    //-->
+    function changeKeyword(id, name, local) {
+        if (local == 'source') {
+            if (document.getElementById("sourceDataMediaId") && document.getElementById("sourceDataMediaName")) {
+                document.getElementById('sourceDataMediaId').value = id;
+                document.getElementById('sourceDataMediaName').value = name;
+            }
+        } else {
+            if (document.getElementById("targetDataMediaId") && document.getElementById("targetDataMediaName")) {
+                document.getElementById('targetDataMediaId').value = id;
+                document.getElementById('targetDataMediaName').value = name;
+            }
+        }
+
+    }
 </script>
 #macro (addBatchDataMediaPairMessage $field)
-    #if (!$field.valid) $field.message #end
-#end	
+	#if (!$field.valid) $field.message #end
+#end
 
 <div class="main">
-  <div class="title"> 
-    <h2>添加映射关系</h2>
-  </div> <div class="crumbs"><a href="channelList.htm?channelId=$channelId">Channel管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="pipelineList.htm?channelId=$channelId">Pipeline管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="dataMediaPairList.htm?pipelineId=$pipelineId">映射关系管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="addDataMediaPair.htm?pipelineId=$pipelineId">批量添加映射关系</a> </div> 
+    <div class="title">
+        <h2>添加映射关系</h2>
+    </div>
+    <div class="crumbs"><a href="channelList.htm?channelId=$channelId">Channel管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a
+            href="pipelineList.htm?channelId=$channelId">Pipeline管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a
+            href="dataMediaPairList.htm?pipelineId=$pipelineId">映射关系管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a
+            href="addDataMediaPair.htm?pipelineId=$pipelineId">批量添加映射关系</a></div>
 
- <form name="addPairForm" method="post" enctype="multipart/form-data">
-	$csrfToken.hiddenField
-	<input type="hidden" name="action" value="data_media_pair_action"/>
-	<input type="hidden" name="event_submit_do_batch_add" value="1" />
-	<div class="setting_box">
-		#set ($batchDataMediaPairGroup = $form.batchDataMediaPairInfo.defaultInstance)
-		<input type="hidden" name="$batchDataMediaPairGroup.pipelineId.key" value="$pipelineId"/>
-		<input type="hidden" name="pipelineId" value="$pipelineId"/>
-		<input type="hidden" name="channelId" value="$channelId"/>
-		<table cellpadding="0" cellspacing="0" class="setting setting_otter">
-			<span class="red">#addBatchDataMediaPairMessage ($batchDataMediaPairGroup.formBatchDataMediaPairError)</span>
-			<tr> 
-				<td>
-					格式<span class="red">(红色为必填)</span>：<br/>
-					配置：<span class="red">schema1,sourceId1,schema2,sourceId2,</span>其中schema为数据库名称(如：yjdd)，sourceId为数据源的ID（<a target="_blank" href="/data_media_list.htm">数据源配置中的序号</a>）<br/>
-					举例,如果在<a target="_blank" href="/data_media_list.htm">数据源配置</a>列表中有两条记录：
-					<ul>
-						<li>1. 单位A的数据源，数据为yjdd,其序号为1</li>
-                        <li>2. 单位B的数据源，数据为yjdd,其序号为2</li>
-					</ul>
-					则，配置单位A到单位B的同步数据映射为：yjdd,1,yjdd,2;相反为:yjdd,2,yjdd,1
-##					1. 最简配置 <span class="red">schema,table,sourceId1,sourceId2,</span>loadWeight<br/>
-##					2. 表名不一致 <span class="red">schema1,table1,sourceId1,schema2,table2,sourceId2,</span>loadWeight<br/>
-				</td>
-			</tr>
-			<tr> 
-				<td>
-					<textarea cols=100 rows=10 name="$batchDataMediaPairGroup.batchPairContent.key" ></textarea>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<input type="submit" name="submitKey" value="保存" class="button"></input>
- </form>
+    <form name="addPairForm" method="post" enctype="multipart/form-data">
+		$csrfToken.hiddenField
+        <input type="hidden" name="action" value="data_media_pair_action"/>
+        <input type="hidden" name="event_submit_do_batch_add" value="1"/>
+
+        <div class="setting_box">
+			#set ($batchDataMediaPairGroup = $form.batchDataMediaPairInfo.defaultInstance)
+            <input type="hidden" name="$batchDataMediaPairGroup.pipelineId.key" value="$pipelineId"/>
+            <input type="hidden" name="pipelineId" value="$pipelineId"/>
+            <input type="hidden" name="channelId" value="$channelId"/>
+            <table cellpadding="0" cellspacing="0" class="setting setting_otter">
+                <span class="red">#addBatchDataMediaPairMessage ($batchDataMediaPairGroup.formBatchDataMediaPairError)</span>
+                <tr>
+                    <td style="font-size: 1.25em;color: blue;">
+                        <input type="checkbox" name="$batchDataMediaPairGroup.mode.key">主备模式
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        格式<span class="red">(红色为必填)</span>：<br/>
+                        配置：<span class="red">schema1,sourceId1,schema2,sourceId2,</span>其中schema为数据库名称(如：yjdd)，sourceId为数据源的ID（<a
+                            target="_blank" href="/data_media_list.htm">数据源配置中的序号</a>）<br/>
+                        举例,如果在<a target="_blank" href="/data_media_list.htm">数据源配置</a>列表中有两条记录：
+                        <ul>
+                            <li>1. 单位A的数据源，数据为yjdd,其序号为1</li>
+                            <li>2. 单位B的数据源，数据为yjdd,其序号为2</li>
+                        </ul>
+                        则，配置单位A到单位B的同步数据映射为：yjdd,1,yjdd,2;相反为:yjdd,2,yjdd,1
+					##					1. 最简配置 <span class="red">schema,table,sourceId1,sourceId2,</span>loadWeight<br/>
+					##					2. 表名不一致 <span class="red">schema1,table1,sourceId1,schema2,table2,sourceId2,</span>loadWeight<br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea cols=100 rows=10 name="$batchDataMediaPairGroup.batchPairContent.key"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <input type="submit" name="submitKey" value="保存" class="button"></input>
+    </form>
 </div>
 

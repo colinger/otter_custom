@@ -58,11 +58,11 @@ public class DataMediaAction extends AbstractAction {
 
         DataMedia dataMedia1 = new DataMedia();
         dataMediaInfo.setProperties(dataMedia1);
-        if("all".toUpperCase().equals(dataMedia1.getName())) {
-            for (String table : YJDDTables.allTables()) {
+        if("all".equals(dataMedia1.getName().toLowerCase())) {
+            for (YJDDTables.YJDDTable table : YJDDTables.allOfTables()) {
                 DataMedia dataMedia = new DataMedia();
                 dataMediaInfo.setProperties(dataMedia);
-                dataMedia.setName(table);
+                dataMedia.setName(table.taleName);
                 DataMediaSource dataMediaSource = dataMediaSourceService.findById(dataMediaInfo.getField("sourceId").getLongValue());
                 if (dataMediaSource.getType().isMysql() || dataMediaSource.getType().isOracle()) {
                     dataMedia.setSource((DbMediaSource) dataMediaSource);

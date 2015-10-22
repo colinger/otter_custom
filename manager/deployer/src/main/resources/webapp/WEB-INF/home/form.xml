@@ -384,10 +384,14 @@
 				<fm-validators:custom-error id="invalidBatchDataMediaPair">
 					<message>批量导入失败，请检查配置文档，可能原因:文档字段缺失或者sourceId不存在</message>
 				</fm-validators:custom-error>
+                <fm-validators:custom-error id="invalidBatchDataMediaPairFormat">
+                    <message>批量导入失败:批量导入格式不对!</message>
+                </fm-validators:custom-error>
 			</field>
 			<field name="batchPairContent" displayName="批量导入大本文">
 			</field>
 			<field name="pipelineId" displayName="所属pipeline" />
+            <field name="mode" displayName="模式：主备模式" />
 		</group>
 
 		<!-- - ======== - node info - ======== -->

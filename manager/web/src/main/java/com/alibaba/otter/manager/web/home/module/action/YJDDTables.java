@@ -61,21 +61,74 @@ public abstract class YJDDTables {
         return tables;
     }
 
-    /**
-     * 表的权重
-     * @param table
-     * @return
-     */
-    public static long tableWeight(final String table){
-        if(StringUtils.isBlank(table)){
-            return 5;
-        }
-        for(YJDDTable each: allTablesWithWeight()){
-            if(each.taleName.equals(table)){
-                return each.weight;
-            }
-        }
-        return 5;
+    public static List<YJDDTable> allOfTables() {
+        List<YJDDTable> tables = Arrays.asList(
+                new YJDDTable("app_user", 20),
+                new YJDDTable("audio_encode_type", 5),
+                new YJDDTable("auditing_resource", 5),
+                new YJDDTable("auto_del_log_time_conf", 5),
+                new YJDDTable("auto_statistics_conf", 25),
+                new YJDDTable("auto_statistics_conf_time_points", 30),
+                new YJDDTable("cascading_relation", 5),
+                new YJDDTable("config_item", 5),
+                new YJDDTable("custom_user_group", 25),
+                new YJDDTable("custom_user_group_users", 30),
+                new YJDDTable("department", 10),
+                new YJDDTable("distributed_sequence", 5),
+                new YJDDTable("force_mt", 5),
+                new YJDDTable("frame_rate", 5),
+                new YJDDTable("historical_meeting", 5),
+                new YJDDTable("historical_meeting_member", 5),
+                new YJDDTable("ip", 5),
+                new YJDDTable("job", 5),
+                new YJDDTable("log", 5),
+                new YJDDTable("meeting", 5),
+                new YJDDTable("meeting_in_mcu", 15),
+                new YJDDTable("meeting_members", 20),
+                new YJDDTable("meeting_members_in_polling", 20),
+                new YJDDTable("meeting_members_in_vid_comp", 5),
+                new YJDDTable("meeting_multi_callee", 5),
+                new YJDDTable("meeting_rate", 5),
+                new YJDDTable("member", 15),
+                new YJDDTable("member_future_act", 5),
+                new YJDDTable("member_group", 25),
+                new YJDDTable("member_group_member", 30),
+                new YJDDTable("member_online_statistic", 25),
+                new YJDDTable("micro_control_unit", 10),
+                new YJDDTable("msg_recvers_in_meetings", 5),
+                new YJDDTable("police", 15),
+                new YJDDTable("polling_config", 25),
+                new YJDDTable("polling_config_members_in_polling", 30),
+                new YJDDTable("recorder", 10),
+                new YJDDTable("recorder_channel", 20),
+                new YJDDTable("recorder_member", 5),
+                new YJDDTable("region", 5),
+                new YJDDTable("role_menu", 5),
+                new YJDDTable("role_token", 5),
+                new YJDDTable("rollcall_info", 5),
+                new YJDDTable("rollcall_status", 10),
+                new YJDDTable("statistics_member", 30),
+                new YJDDTable("sys_menu", 5),
+                new YJDDTable("template", 5),
+                new YJDDTable("template_change_list", 10),
+                new YJDDTable("template_leaders", 25),
+                new YJDDTable("template_members", 20),
+                new YJDDTable("template_operators", 5),
+                new YJDDTable("tv_channel", 5),
+                new YJDDTable("tv_wall", 15),
+                new YJDDTable("tv_wall_plan", 5),
+                new YJDDTable("tv_wall_plan_item", 5),
+                new YJDDTable("tv_wall_polling_config", 5),
+                new YJDDTable("tv_wall_scheme", 5),
+                new YJDDTable("tv_wall_scheme_item", 5),
+                new YJDDTable("tv_wall_scheme_mt", 5),
+                new YJDDTable("tv_wall_scheme_owner", 5),
+                new YJDDTable("video_ability", 5),
+                new YJDDTable("video_encode_type", 5),
+                new YJDDTable("video_resolution", 5),
+                new YJDDTable("video_selection", 5)
+        );
+        return tables;
     }
 
     public static class YJDDTable {
