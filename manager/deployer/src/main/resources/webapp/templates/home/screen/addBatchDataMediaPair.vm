@@ -45,7 +45,7 @@ $control.setTemplate("home:navigation.vm")
                 <span class="red">#addBatchDataMediaPairMessage ($batchDataMediaPairGroup.formBatchDataMediaPairError)</span>
                 <tr>
                     <td style="font-size: 1.25em;color: blue;">
-                        <input type="checkbox" name="$batchDataMediaPairGroup.mode.key">主备模式
+                        <input type="checkbox" name="$batchDataMediaPairGroup.mode.key">主备模式(用于灾备))
                     </td>
                 </tr>
                 <tr>
