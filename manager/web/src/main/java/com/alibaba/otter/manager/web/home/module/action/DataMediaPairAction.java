@@ -135,9 +135,9 @@ public class DataMediaPairAction {
          * yjdd-3,template,1,yjddd,template,2
          */
         List<String> StringPairs = new ArrayList<String>();//Arrays.asList(batchPairContent.split("\r\n"));
-        for (String each : YJDDTables.allTables()) {
+        for (YJDDTables.YJDDTable each : YJDDTables.allTablesWithWeight()) {
 //            throw new ManagerException(String.format("%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
-            StringPairs.add(String.format("%s,%s,%s,%s,%s,%s", t[0], each, t[1], t[2], each, t[3]));
+            StringPairs.add(String.format("%s,%s,%s,%s,%s,%s,%d", t[0], each.taleName, t[1], t[2], each.taleName, t[3], each.weight));
         }
         try {
             for (String stringPair : StringPairs) {
@@ -184,7 +184,7 @@ public class DataMediaPairAction {
                 DataMediaPair dataMediaPair = new DataMediaPair();
                 dataMediaPair.setSource(sourceDataMedia);
                 dataMediaPair.setTarget(targetDataMedia);
-                dataMediaPair.setPushWeight(weight);
+                dataMediaPair.setPushWeight(weight);//是否需要考虑外键
                 dataMediaPair.setPipelineId(pipelineId);
 
                 dataMediaPairService.createIfNotExist(dataMediaPair);
