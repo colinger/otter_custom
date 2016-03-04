@@ -124,7 +124,7 @@ $control.setTemplate("home:navigation.vm")
 	  <tr> 
         <th width="300">数据库帐号：</th>
         <td width="329">
-            <input type="text" name="$canalParameterGroup.dbUsername.key" value="$!canal.canalParameter.dbUsername.value" class="setting_input"/><span class="red">*</span>
+            <input type="text" name="$canalParameterGroup.dbUsername.key" value="root" class="setting_input"/><span class="red">*</span>
 			<br />
 			<span class="red">#addCanalMessage ($canalParameterGroup.dbUsername)</span>
 		</td>
@@ -132,7 +132,7 @@ $control.setTemplate("home:navigation.vm")
 	  <tr> 
         <th width="300">数据库密码：</th>
         <td width="329">
-            <input type="password" name="$canalParameterGroup.dbPassword.key" value="" class="setting_input"/><span class="red">*</span>
+            <input type="password" name="$canalParameterGroup.dbPassword.key" value="kdc01" class="setting_input"/><span class="red">*</span>
 			<br />
 			<span class="red">#addCanalMessage ($canalParameterGroup.dbPassword)</span>
 		</td>

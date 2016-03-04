@@ -30,7 +30,7 @@ $control.setTemplate("home:navigation.vm")
       <tr> 
         <th width="300">数据源名字：</th>
         <td width="329">
-			<input type="text" name="$dataMediaSourceGroup.name.key" value="$!dataMediaSourceGroup.name.value" class="setting_input"/><span class="red">*</span>
+			<input type="text" name="$dataMediaSourceGroup.name.key" value="yjdd" class="setting_input"/><span class="red">*</span>
 			<br />
 			<span class="red">#addDataSourceMessage ($dataMediaSourceGroup.name)</span>
 		</td>
@@ -47,7 +47,7 @@ $control.setTemplate("home:navigation.vm")
       <tr> 
         <th>用户名：</th>
         <td>
-			<input id="sourceUserName" name="$dataMediaSourceGroup.username.key" value="$!dataMediaSourceGroup.username.value" type="text" class="setting_input"/><span class="red">*</span>
+			<input id="sourceUserName" name="$dataMediaSourceGroup.username.key" value="root" type="text" class="setting_input"/><span class="red">*</span>
 			<br />
 			<span class="red">#addDataSourceMessage ($dataMediaSourceGroup.username)</span>
 		</td>
@@ -55,7 +55,7 @@ $control.setTemplate("home:navigation.vm")
 	  <tr> 
         <th>密码：</th>
         <td>
-			<input id="sourcePassword" name="$dataMediaSourceGroup.password.key" type="password" class="setting_input"/>
+			<input id="sourcePassword" name="$dataMediaSourceGroup.password.key" value="kdc01" type="password" class="setting_input"/>
 			<br />
 			<span class="red">#addDataSourceMessage ($dataMediaSourceGroup.password)</span>
 		</td>
@@ -63,7 +63,7 @@ $control.setTemplate("home:navigation.vm")
 	  <tr> 
         <th>URL：</th>
         <td>
-			<input id="sourceUrl" name="$dataMediaSourceGroup.url.key" value="$!dataMediaSourceGroup.url.value" type="text" class="setting_input"/>
+			<input id="sourceUrl" name="$dataMediaSourceGroup.url.key" value="jdbc:mysql://x.x.x.x:3306" type="text" class="setting_input"/>
 			<br />
 			<span class="red">#addDataSourceMessage ($dataMediaSourceGroup.url)</span>
 		</td>

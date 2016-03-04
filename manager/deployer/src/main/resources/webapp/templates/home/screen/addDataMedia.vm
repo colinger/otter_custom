@@ -36,7 +36,7 @@ function changeKeyword(id, name) {
 	    <tr>
 		    <span style="color: red;font-size: 1.4em">
 			    默认情况(表名为all)下系统自动增加所有需要同步的表;<br/>
-			    也可单独添加指定的表(表名填写需要加的表名)
+			    也可单独添加指定的表(表名填写需要加的表名),此步不需验证连接表。
 		    </span>
 	    </tr>
 		<tr>

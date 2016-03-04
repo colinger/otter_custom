@@ -56,6 +56,8 @@ public abstract class YJDDTables {
                 new YJDDTable("tv_wall_plan"),//NO FK
                 new YJDDTable("recorder_channel"),//NO FK
                 new YJDDTable("ip"),//NO FK
+                new YJDDTable("historical_meeting"),//NO FK
+                new YJDDTable("historical_meeting_member"),//NO FK
                 new YJDDTable("auditing_resource") //NO FK
         );
         return tables;
@@ -126,7 +128,9 @@ public abstract class YJDDTables {
                 new YJDDTable("video_ability", 5),
                 new YJDDTable("video_encode_type", 5),
                 new YJDDTable("video_resolution", 5),
-                new YJDDTable("video_selection", 5)
+                new YJDDTable("video_selection", 5),
+                new YJDDTable("historical_meeting",5),//NO FK
+                new YJDDTable("historical_meeting_member", 5)//NO FK
         );
         return tables;
     }
